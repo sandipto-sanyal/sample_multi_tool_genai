@@ -1,0 +1,41 @@
+flowchart TD
+    subgraph EnterpriseSolutions[Enterprise Solutions]
+        database[fa:fa-database Enterprise Database]
+        harddrive[fa:fa-hard-drive Hard Drive]
+        api[fa:fa-algolia Enterprise API]
+        database ~~~ harddrive ~~~ api
+    end
+    
+    subgraph Tools[fa:fa-toolbox Independent Tools]
+        schema[fa:fa-database Database Schema Extractor]
+        queryRunner[fa:fa-code Query Runner]
+        graphPlotter[fa:fa-chart-area Graph Plotter]
+        apiCaller[fa:fa-python API Invocation]
+        summarizer[fa:fa-clipboard-list fa:fa-brain Summarizer LLM]
+        schema ~~~ queryRunner ~~~ graphPlotter ~~~ apiCaller ~~~ summarizer
+    end
+    subgraph Orchestrator[fa:fa-robot fa:fa-brain Orchestrator Agent]
+        memory[fa:fa-memory Memory Buffer]
+        orchstratorPrompt[fa:fa-comment Orchestrator System Prompt] --> memory
+        orchestratorLlm[fa:fa-brain Orchestrator LLM]
+        memory --> orchestratorLlm
+
+        %% orchestrator flow to be commented before lecture
+        orchestratorLlm --> planningStep{🤔 Let Me Think}
+        planningStep --> |Not In Tool Scope|AnswerDirectly
+        planningStep --> |Tool Call|ToolCalls[Sequence of Tool Calls]
+        planningStep --> |No more tool call Needed|AnswerFromMemory[Summarize and Answer from Memory]
+        
+    end
+    UserTask[fa:fa-user User Task]
+    UserTask --> memory
+    %% Create tool connections
+    database --> schema
+    database --> queryRunner
+    graphPlotter --> harddrive
+    Tools --> orchestratorLlm
+    api --> apiCaller
+    
+    %% agentic flow to nbe commented before lecturr
+    ToolCalls --> |Call Tools in same seq|Tools
+    Tools --> |Register Each Tool Call Output in Memory|memory

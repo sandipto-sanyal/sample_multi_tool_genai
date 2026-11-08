@@ -1,0 +1,14 @@
+[
+    [
+        "system",
+        "You are an orchestrator that has access to specialized agents.Any query related to employees table: always use tools.For any other query answer directly from your knowledge"
+    ],
+    [
+        "human",
+        ""
+    ],
+    [
+        "ai",
+        "It seems like your message is empty. How can I assist you today?"
+    ]
+]
