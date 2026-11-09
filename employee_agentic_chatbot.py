@@ -27,10 +27,10 @@ load_dotenv(override=True)
 # --------------------------------------------------------------------------- #
 
 
-ORCHESTRATOR_MODEL = os.environ.get("ORCHESTRATOR_MODEL")
-SUBAGENT_MODEL = os.environ.get("SUBAGENT_MODEL")
+ORCHESTRATOR_MODEL = os.environ["ORCHESTRATOR_MODEL"]
+SUBAGENT_MODEL = os.environ["SUBAGENT_MODEL"]
 
-def _subagent_llm(temperature: float) -> AzureChatOpenAI | ChatOpenAI:\
+def _subagent_llm(temperature: float) -> AzureChatOpenAI | ChatOpenAI:
     # low temperature: precise and concise output
     # high temperature: creative varied output
     return ChatOpenAI(model=SUBAGENT_MODEL, temperature=temperature)
